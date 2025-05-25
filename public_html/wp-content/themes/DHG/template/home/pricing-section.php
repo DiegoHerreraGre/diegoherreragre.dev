@@ -61,6 +61,12 @@
                     <svg class="flex-none w-5 h-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
                     </svg>
+                    Todo en mantenimiento más...
+                </li>
+                <li class="flex text-gray-900 gap-x-3 dark:text-white">
+                    <svg class="flex-none w-5 h-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                    </svg>
                     Diseño de tu sitio web con Tailwind CSS
                 </li>
                 <li class="flex text-gray-900 gap-x-3 dark:text-white">
@@ -68,18 +74,6 @@
                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
                     </svg>
                     Desarrollo de tu sitio web con WordPress
-                </li>
-                <li class="flex text-gray-900 gap-x-3 dark:text-white">
-                    <svg class="flex-none w-5 h-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                    </svg>
-                    Optimización para SEO
-                </li>
-                <li class="flex text-gray-900 gap-x-3 dark:text-white">
-                    <svg class="flex-none w-5 h-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                    </svg>
-                    Gestión de contenido
                 </li>
                 <li class="flex text-gray-900 gap-x-3 dark:text-white">
                     <svg class="flex-none w-5 h-6 text-blue-600" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">

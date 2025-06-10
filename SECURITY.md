@@ -1,5 +1,9 @@
 # Security Policy
 
+## Security Advisories
+
+Privately discuss, fix, and publish information about security vulnerabilities in your repository's code. There aren't any published security advisories at this time.
+
 ## Supported Versions
 
 Solo la versión más reciente de este proyecto recibe soporte y actualizaciones de seguridad.

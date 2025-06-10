@@ -1,0 +1,159 @@
+import { ArticleLayout } from '@/components/ArticleLayout'
+import rust from './rust-2.webp'
+import React from 'react'
+
+export function LogosGithubCopilot(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.24em"
+      height="1em"
+      viewBox="0 0 256 208"
+      {...props}
+    >
+      <path d="M205.28 31.36c14.096 14.88 20.016 35.2 22.512 63.68c6.626 0 12.805 1.47 16.976 7.152l7.792 10.56A17.55 17.55 0 0 1 256 123.2v28.688c-.008 3.704-1.843 7.315-4.832 9.504C215.885 187.222 172.35 208 128 208c-49.066 0-98.19-28.273-123.168-46.608c-2.989-2.189-4.825-5.8-4.832-9.504V123.2c0-3.776 1.2-7.424 3.424-10.464l7.792-10.544c4.173-5.657 10.38-7.152 16.992-7.152c2.496-28.48 8.4-48.8 22.512-63.68C77.331 3.165 112.567.06 127.552 0H128c14.72 0 50.4 2.88 77.28 31.36m-77.264 47.376c-3.04 0-6.544.176-10.272.544c-1.312 4.896-3.248 9.312-6.08 12.128c-11.2 11.2-24.704 12.928-31.936 12.928c-6.802 0-13.927-1.42-19.744-5.088c-5.502 1.808-10.786 4.415-11.136 10.912c-.586 12.28-.637 24.55-.688 36.824c-.026 6.16-.05 12.322-.144 18.488c.024 3.579 2.182 6.903 5.44 8.384C79.936 185.92 104.976 192 128.016 192c23.008 0 48.048-6.08 74.512-18.144c3.258-1.48 5.415-4.805 5.44-8.384c.317-18.418.062-36.912-.816-55.312h.016c-.342-6.534-5.648-9.098-11.168-10.912c-5.82 3.652-12.927 5.088-19.728 5.088c-7.232 0-20.72-1.728-31.936-12.928c-2.832-2.816-4.768-7.232-6.08-12.128a106 106 0 0 0-10.24-.544m-26.941 43.93c5.748 0 10.408 4.66 10.408 10.409v19.183c0 5.749-4.66 10.409-10.408 10.409s-10.408-4.66-10.408-10.409v-19.183c0-5.748 4.66-10.408 10.408-10.408m53.333 0c5.749 0 10.409 4.66 10.409 10.409v19.183c0 5.749-4.66 10.409-10.409 10.409c-5.748 0-10.408-4.66-10.408-10.409v-19.183c0-5.748 4.66-10.408 10.408-10.408M81.44 28.32c-11.2 1.12-20.64 4.8-25.44 9.92c-10.4 11.36-8.16 40.16-2.24 46.24c4.32 4.32 12.48 7.2 21.28 7.2c6.72 0 19.52-1.44 30.08-12.16c4.64-4.48 7.52-15.68 7.2-27.04c-.32-9.12-2.88-16.64-6.72-19.84c-4.16-3.68-13.6-5.28-24.16-4.32m68.96 4.32c-3.84 3.2-6.4 10.72-6.72 19.84c-.32 11.36 2.56 22.56 7.2 27.04c10.56 10.72 23.36 12.16 30.08 12.16c8.8 0 16.96-2.88 21.28-7.2c5.92-6.08 8.16-34.88-2.24-46.24c-4.8-5.12-14.24-8.8-25.44-9.92c-10.56-.96-20 .64-24.16 4.32M128 56c-2.56 0-5.6.16-8.96.48c.32 1.76.48 3.68.64 5.76c0 1.44 0 2.88-.16 4.48c3.2-.32 5.92-.32 8.48-.32s5.28 0 8.48.32c-.16-1.6-.16-3.04-.16-4.48c.16-2.08.32-4 .64-5.76c-3.36-.32-6.4-.48-8.96-.48"></path>
+    </svg>
+  )
+}
+
+export const article = {
+  author: 'Diego Herrera Gré',
+  date: '2024-06-13',
+  title: 'Rust: Construyendo el futuro de la programación segura',
+  description:
+    'Mientras otros lenguajes luchan con problemas de seguridad y rendimiento, Rust emerge como el lenguaje del futuro, ofreciendo garantías de memoria sin recolector de basura y concurrencia sin data races.',
+}
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+}
+
+export default (props) => <ArticleLayout article={article} {...props} />
+
+Mientras otros lenguajes de programación luchan con problemas fundamentales de seguridad y rendimiento, Rust se destaca como una revolución en el desarrollo de software moderno, combinando seguridad y rendimiento de una manera que antes parecía imposible.
+
+<Image src={rust} alt="rust" quality={75} />
+
+Para entender verdaderamente el poder de Rust, necesitamos examinar sus características fundamentales que lo hacen único en el ecosistema de lenguajes de programación actuales.
+
+## Sistema de Ownership
+
+El sistema de ownership de Rust es su característica más distintiva y poderosa. Este sistema garantiza la seguridad de memoria en tiempo de compilación, eliminando clases enteras de errores comunes en otros lenguajes:
+
+```rust
+fn main() {
+    // Ejemplo de ownership y borrowing
+    let mut original = String::from("hello");
+
+    // Préstamo inmutable
+    let longitud = calcular_longitud(&original);
+
+    // Préstamo mutable
+    agregar_mundo(&mut original);
+
+    println!("La cadena '{}' tiene {} caracteres", original, longitud);
+}
+
+fn calcular_longitud(s: &String) -> usize {
+    s.len()
+}
+
+fn agregar_mundo(s: &mut String) {
+    s.push_str(" world");
+}
+```
+
+## Concurrencia Sin Miedo
+
+Rust hace que la programación concurrente sea segura y predecible. Su sistema de tipos previene las condiciones de carrera en tiempo de compilación:
+
+```rust
+use std::thread;
+use std::sync::mpsc;
+
+fn main() {
+    let (tx, rx) = mpsc::channel();
+
+    thread::spawn(move || {
+        let mensaje = String::from("¡Hola desde otro hilo!");
+        tx.send(mensaje).unwrap();
+    });
+
+    let recibido = rx.recv().unwrap();
+    println!("{}", recibido);
+}
+```
+
+## Características Modernas
+
+Rust combina las mejores características de la programación moderna mientras mantiene un rendimiento excepcional:
+
+1. Pattern Matching expresivo
+2. Manejo de errores robusto con Result y Option
+3. Traits para abstracción sin costo en runtime
+4. Zero-cost abstractions
+5. Integración FFI segura con código C
+
+```rust
+enum Resultado<T> {
+    Ok(T),
+    Error(String),
+}
+
+fn procesar_datos(input: &str) -> Resultado<i32> {
+    match input.parse::<i32>() {
+        Ok(numero) => Resultado::Ok(numero * 2),
+        Err(_) => Resultado::Error(String::from("Entrada inválida")),
+    }
+}
+```
+
+El sistema de tipos de Rust es increíblemente expresivo y poderoso. No solo previene errores comunes, sino que también guía al desarrollador hacia soluciones más robustas y mantenibles.
+
+La combinación de estas características hace que Rust sea ideal para:
+
+- Desarrollo de sistemas
+- Aplicaciones de alto rendimiento
+- Software crítico para la seguridad
+- WebAssembly
+- Servicios en la nube
+
+```rust
+#[derive(Debug)]
+struct Sistema {
+    nombre: String,
+    estado: Estado,
+}
+
+#[derive(Debug)]
+enum Estado {
+    Activo,
+    Inactivo,
+}
+
+impl Sistema {
+    fn nuevo(nombre: &str) -> Sistema {
+        Sistema {
+            nombre: String::from(nombre),
+            estado: Estado::Inactivo,
+        }
+    }
+
+    fn activar(&mut self) {
+        self.estado = Estado::Activo;
+    }
+}
+```
+
+<div className="flex items-center gap-2 rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-800">
+  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+    Revisado por Github Copilot
+  </span>
+  <LogosGithubCopilot
+    width="32"
+    height="32"
+    alt="logo copilot"
+    className="color-inverse text-black dark:invert"
+  />
+</div>

@@ -1,87 +1,87 @@
-import PermisionMiddleware from '@/middlewares/permisions.middlewares'
-import { PrismaClient } from '@/lib/generated/prisma'
-import { z } from 'zod'
-import { validateRecaptcha } from '@/config/recaptcha.config'
-import { sendEmail } from '@/utils/email'
+import PermisionMiddleware from "@/middlewares/permisions.middlewares";
+import { PrismaClient } from "@/lib/generated/prisma";
+import { z } from "zod";
+import { validateRecaptcha } from "@/config/recaptcha.config";
+import { sendEmail } from "@/utils/email";
 import {
   RECAPTCHA_ACTIONS,
   getMinScoreForAction,
-} from '@/config/recaptcha-actions.config'
+} from "@/config/recaptcha-actions.config";
 
 export async function GET(request) {
-  return PermisionMiddleware(request)
+  return PermisionMiddleware(request);
 }
 
 export async function POST(request) {
-  const prisma = new PrismaClient()
+  const prisma = new PrismaClient();
   try {
-    const formData = await request.formData()
-    const email = formData.get('email')
-    const selectOption = formData.get('selectOption')
-    const recaptchaToken = formData.get('recaptchaToken')
+    const formData = await request.formData();
+    const email = formData.get("email");
+    const selectOption = formData.get("selectOption");
+    const recaptchaToken = formData.get("recaptchaToken");
 
     if (!recaptchaToken) {
       return new Response(
         JSON.stringify({
           success: false,
-          message: 'Token de reCAPTCHA requerido',
+          message: "Token de reCAPTCHA requerido",
         }),
         {
           status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
-    const environment = process.env.NODE_ENV || 'production'
+    const environment = process.env.NODE_ENV || "production";
     const minScore = getMinScoreForAction(
       RECAPTCHA_ACTIONS.CONTACTO,
-      environment,
-    )
+      environment
+    );
 
     const recaptchaValidation = await validateRecaptcha(
       recaptchaToken,
       RECAPTCHA_ACTIONS.CONTACTO,
-      minScore,
-    )
+      minScore
+    );
 
     if (!recaptchaValidation.success) {
       return new Response(
         JSON.stringify({
           success: false,
           error:
-            'Verificación de seguridad falló. Por favor, inténtalo nuevamente.',
+            "Verificación de seguridad falló. Por favor, inténtalo nuevamente.",
           recaptchaError: recaptchaValidation.error,
         }),
         {
           status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     const schema = z.object({
       email: z.string().email(),
       selectOption: z.string(),
-    })
+    });
 
     try {
       const data = schema.parse({
         email,
         selectOption,
-      })
+      });
 
       const contacto = await prisma.contacto.create({
         data,
-      })
+      });
     } catch (validationError) {
       return new Response(
         JSON.stringify({ message: validationError.message }),
         {
           status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     const adminEmailContent = `
@@ -107,11 +107,10 @@ export async function POST(request) {
         </div>
     </body>
     </html>
-    `
+    `;
 
     // Email para el usuario
-    const userEmailContent = `
-    <!DOCTYPE html>
+    const userEmailContent = `    <!DOCTYPE html>
     <html lang="es">
     <head>
         <meta charset="UTF-8">
@@ -136,76 +135,76 @@ export async function POST(request) {
         </div>
     </body>
     </html>
-    `
+    `;
 
     // Enviar emails
-    const adminEmail = 'dherrera@mtm.cl'
+    const adminEmail = "dherrera@mtm.cl";
 
     await Promise.all([
-      sendEmail(adminEmail, 'Nuevo contacto hecho', adminEmailContent, true),
+      sendEmail(adminEmail, "Nuevo contacto hecho", adminEmailContent, true),
       sendEmail(
         email,
-        '¡Te contactaré muy prontamente!',
+        "¡Te contactaré muy prontamente!",
         userEmailContent,
-        true,
+        true
       ),
-    ])
+    ]);
 
     return new Response(
       JSON.stringify({
-        message: '¡Gracias por suscribirte!',
+        message: "¡Gracias por suscribirte!",
         success: true,
       }),
       {
         status: 200,
-        headers: { 'Content-Type': 'application/json' },
-      },
-    )
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   } catch (error) {
-    console.error('Newsletter error:', error)
+    console.error("Newsletter error:", error);
 
     if (error.code === 11000) {
       return new Response(
         JSON.stringify({
-          message: 'Este email ya está registrado',
+          message: "Este email ya está registrado",
           success: false,
         }),
         {
           status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        },
-      )
+          headers: { "Content-Type": "application/json" },
+        }
+      );
     }
 
     return new Response(
       JSON.stringify({
-        message: 'Error processing subscription',
+        message: "Error processing subscription",
         success: false,
       }),
       {
         status: 500,
-        headers: { 'Content-Type': 'application/json' },
-      },
-    )
+        headers: { "Content-Type": "application/json" },
+      }
+    );
   }
 }
 
 export async function PUT(request) {
-  return PermisionMiddleware(request)
+  return PermisionMiddleware(request);
 }
 
 export async function DELETE(request) {
-  return PermisionMiddleware(request)
+  return PermisionMiddleware(request);
 }
 
 export async function PATCH(request) {
-  return PermisionMiddleware(request)
+  return PermisionMiddleware(request);
 }
 
 export async function OPTIONS(request) {
-  return PermisionMiddleware(request)
+  return PermisionMiddleware(request);
 }
 
 export async function HEAD(request) {
-  return PermisionMiddleware(request)
+  return PermisionMiddleware(request);
 }

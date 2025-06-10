@@ -1,35 +1,35 @@
-import Image from 'next/image'
-import Link from 'next/link'
-import clsx from 'clsx'
-import { Container } from '@/components/Container'
+import Image from "next/image";
+import Link from "next/link";
+import clsx from "clsx";
+import { Container } from "@/components/Container";
 import {
   GitHubIcon,
   InstagramIcon,
   LinkedInIcon,
-} from '@/components/SocialIcons'
-import CopySocialLink from '@/components/CopySocialLink'
-import portraitImage from '@/images/portrait.webp'
-import appleMusicLogo from '@/images/logos/applemusic.svg'
+} from "@/components/SocialIcons";
+import CopySocialLink from "@/components/CopySocialLink";
+import portraitImage from "@/images/portrait.webp";
+import appleMusicLogo from "@/images/logos/applemusic.svg";
 
 function SocialLink({ className, href, children, icon: Icon }) {
   return (
-    <li className={clsx(className, 'flex')}>
+    <li className={clsx(className, "flex")}>
       <Link
         href={href}
-        className="group flex text-sm font-medium text-zinc-800 transition hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
+        className="flex text-sm font-medium transition group text-zinc-800 hover:text-teal-500 dark:text-zinc-200 dark:hover:text-teal-500"
       >
-        <Icon className="h-6 w-6 flex-none fill-zinc-500 transition group-hover:fill-teal-500" />
+        <Icon className="flex-none w-6 h-6 transition fill-zinc-500 group-hover:fill-teal-500" />
         <span className="ml-4">{children}</span>
       </Link>
     </li>
-  )
+  );
 }
 
 export const metadata = {
-  title: 'About',
+  title: "About",
   description:
-    'Soy Diego Herrera, un desarrollador de software apasionado por la tecnología y el desarrollo web.',
-}
+    "Soy Diego Herrera, un desarrollador de software apasionado por la tecnología y el desarrollo web.",
+};
 
 export default function About() {
   return (
@@ -43,10 +43,9 @@ export default function About() {
               width={1320}
               height={1320}
               sizes="(min-width: 1024px) 32rem, 20rem"
-              className="aspect-square rotate-3 rounded-2xl bg-zinc-100 object-cover dark:bg-zinc-800"
+              className="object-cover aspect-square rotate-3 rounded-2xl bg-zinc-100 dark:bg-zinc-800"
               loading="lazy"
-              placeholder="blur"
-              quality={75}
+              quality={100}
             />
           </div>
         </div>
@@ -55,7 +54,7 @@ export default function About() {
             Soy Diego Herrera, un desarrollador apasionado por crear soluciones
             tecnológicas.
           </h1>
-          <div className="mt-6 space-y-7 text-base text-zinc-600 dark:text-zinc-400">
+          <div className="mt-6 text-base space-y-7 text-zinc-600 dark:text-zinc-400">
             <p>
               Mi fascinación por la tecnología comenzó en mi infancia, cuando
               tuve mi primera computadora con Windows 98. Pasaba horas
@@ -85,25 +84,26 @@ export default function About() {
               especialmente Bash.
             </p>
           </div>
-          <article className="mt-12 rounded-xl bg-zinc-50 p-6 shadow-lg dark:bg-zinc-800/50">
-            <h4 className="flex flex-row justify-stretch gap-4 text-3xl font-bold text-zinc-800 dark:text-zinc-100">
+          <article className="p-6 mt-12 shadow-lg rounded-xl bg-zinc-50 dark:bg-zinc-800/50">
+            <h4 className="flex flex-row gap-4 text-3xl font-bold justify-stretch text-zinc-800 dark:text-zinc-100">
               Música que me gusta
               <Image
                 src={appleMusicLogo}
                 alt="Apple Music"
                 width={40}
                 height={40}
-                quality={75}
+                loading="lazy"
+                quality={100}
               />
             </h4>
-            <div className="mt-6 flex flex-wrap gap-6">
+            <div className="flex flex-wrap gap-6 mt-6">
               <iframe
                 allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
                 sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation"
                 src="https://embed.music.apple.com/cl/album/from-zero-deluxe-edition/1801842323"
                 title="From Zero Deluxe Edition"
                 className="w-full rounded-lg shadow-md"
-                style={{ height: 150, background: 'transparent' }}
+                style={{ height: 150, background: "transparent" }}
               />
               <iframe
                 allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
@@ -111,7 +111,7 @@ export default function About() {
                 src="https://embed.music.apple.com/cl/playlist/nu-metal-gamer/pl.u-PDb40oEIeWAJ8Ng"
                 title="Nu Metal Gamer"
                 className="w-full rounded-lg shadow-md"
-                style={{ height: 150, background: 'transparent' }}
+                style={{ height: 150, background: "transparent" }}
               />
               <iframe
                 allow="autoplay *; encrypted-media *; fullscreen *; clipboard-write"
@@ -119,7 +119,7 @@ export default function About() {
                 src="https://embed.music.apple.com/cl/album/a-farewell-to-arms/1530511730?i=1530512241"
                 title="Machine Head - A Farewell to Arms"
                 className="w-full rounded-lg shadow-md"
-                style={{ height: 150, background: 'transparent' }}
+                style={{ height: 150, background: "transparent" }}
               />
             </div>
           </article>
@@ -156,5 +156,5 @@ export default function About() {
         </div>
       </div>
     </Container>
-  )
+  );
 }

@@ -1,7 +1,7 @@
-import { Card } from '@/components/Card'
-import { SimpleLayout } from '@/components/SimpleLayout'
-import { getAllArticles } from '@/lib/articles'
-import { formatDate } from '@/lib/formatDate'
+import { Card } from "@/components/Card";
+import { SimpleLayout } from "@/components/SimpleLayout";
+import { getAllArticles } from "@/lib/articles";
+import { formatDate } from "@/lib/formatDate";
 
 function Article({ article }) {
   return (
@@ -24,35 +24,35 @@ function Article({ article }) {
       <Card.Eyebrow
         as="time"
         dateTime={article.date}
-        className="mt-1 hidden md:block"
+        className="hidden mt-1 md:block"
       >
         {formatDate(article.date)}
       </Card.Eyebrow>
     </article>
-  )
+  );
 }
 
 export const metadata = {
-  title: 'Artículos sobre Tecnología',
+  title: "Artículos sobre Tecnología",
   description:
-    'Compartiendo mi pasión por la tecnología a través de artículos sobre desarrollo, innovación y el futuro digital.',
-}
+    "Compartiendo mi pasión por la tecnología a través de artículos sobre desarrollo, innovación y el futuro digital.",
+};
 
+export const dynamic = "force-dynamic";
 export default async function ArticlesIndex() {
-  let articles = await getAllArticles()
-
+  let articles = await getAllArticles();
   return (
     <SimpleLayout
       title="Explorando el mundo tech: mi viaje en el desarrollo de software"
       intro="La tecnología es mi pasión y quiero compartir contigo mis experiencias, aprendizajes y descubrimientos en este fascinante mundo del desarrollo. Desde código hasta ideas innovadoras, aquí encontrarás mi perspectiva sobre el presente y futuro de la tecnología."
     >
       <div className="md:border-l md:border-zinc-100 md:pl-6 md:dark:border-zinc-700/40">
-        <div className="flex max-w-3xl flex-col space-y-16">
+        <div className="flex flex-col max-w-3xl space-y-16">
           {articles.map((article) => (
             <Article key={article.slug} article={article} />
           ))}
         </div>
       </div>
     </SimpleLayout>
-  )
+  );
 }

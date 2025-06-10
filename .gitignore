@@ -1,0 +1,7 @@
+htpasswd/
+logs/
+.htpasswd/
+public_html/
+private_html/
+public_ftp/
+stats/

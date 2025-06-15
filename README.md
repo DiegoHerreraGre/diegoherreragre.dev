@@ -4,12 +4,12 @@ Este repositorio contiene el código fuente del sitio web personal y blog alojad
 
 ## 🚀 Tecnologías principales
 
-- Next.js 14+ (App Router)
-- React 18+
-- Node.js 22.x
+- Next.js 15+ (App Router)
+- React 19+
+- Node.js LTS 22.16.0
 - Prisma ORM (MySQL/MariaDB)
 - Tailwind CSS
-- PHP 8.x (para proyectos complementarios)
+- npm
 
 ## 🗂 Estructura de directorios
 
@@ -28,6 +28,7 @@ Este repositorio contiene el código fuente del sitio web personal y blog alojad
 │   └── utils/           # Funciones utilitarias
 │
 ├── .gitignore
+├── public_html/ => proxy_inverso
 └── README.md
 ```
 
@@ -81,4 +82,4 @@ Para reportar vulnerabilidades o problemas de seguridad, consulta el archivo [SE
 
 ## 📄 Licencia
 
-Este proyecto está bajo la licencia [MIT](LICENSE).
+Este proyecto está bajo la licencia [LGPL](LICENSE).

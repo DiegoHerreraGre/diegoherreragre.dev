@@ -19,6 +19,7 @@ const ubuntu = Ubuntu({
   subsets: ["latin"],
   display: "swap",
   weight: ["300", "400", "700"],
+  preload: true,
 });
 
 export const metadata = {

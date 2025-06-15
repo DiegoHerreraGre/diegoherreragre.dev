@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start -p 22110",
     "lint": "next lint",
-    "info": "node -v && npm -v && npx prisma -v && pm2 -v",
-    "check": "npm run lint && prisma validate",
-    "deploy": "npm run pm2:destroy && rm -rf .next && npm run build && npm run pm2:start",
+    "info": "node -v && pnpm -v && npx prisma -v && pm2 -v",
+    "check": "pnpm lint && prisma validate",
+    "deploy": "pnpm pm2:destroy && rm -rf .next && pnpm build && pnpm pm2:start",
     "pm2:start": "pm2 start ecosystem.config.js",
     "pm2:destroy": "pm2 stop ecosystem.config.js && pm2 delete ecosystem.config.js",
     "pm2:restart": "pm2 restart ecosystem.config.js",
@@ -21,10 +21,7 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "update": "ncu -u && npm install"
-  },
-  "engines": {
-    "node": "22.16.0"
+    "update": "ncu -u && ppnpm install"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
@@ -34,17 +31,17 @@
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.3",
     "@prisma/client": "^6.9.0",
-    "@tailwindcss/postcss": "^4.1.8",
+    "@tailwindcss/postcss": "^4.1.10",
     "@tailwindcss/typography": "^0.5.16",
     "cheerio": "^1.1.0",
     "clsx": "^2.1.1",
-    "critters": "^0.0.23",
+    "critters": "^0.0.25",
     "dotenv": "^16.5.0",
     "fast-glob": "^3.3.3",
     "feed": "^5.1.0",
-    "framer-motion": "12.16.0",
+    "framer-motion": "12.18.1",
     "highlight.js": "^11.11.1",
-    "lucide-react": "^0.513.0",
+    "lucide-react": "^0.515.0",
     "next": "^15.3.3",
     "next-recaptcha-v3": "^1.5.2",
     "next-themes": "^0.4.6",
@@ -54,12 +51,12 @@
     "react-icon-cloud": "^4.1.7",
     "rehype-highlight": "^7.0.2",
     "remark-gfm": "^4.0.1",
-    "tailwindcss": "^4.1.8",
+    "tailwindcss": "^4.1.10",
     "uuid": "^11.1.0",
-    "zod": "^3.25.56"
+    "zod": "^3.25.64"
   },
   "devDependencies": {
-    "eslint": "^9.28.0",
+    "eslint": "^9.29.0",
     "eslint-config-next": "^15.3.3",
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.12",

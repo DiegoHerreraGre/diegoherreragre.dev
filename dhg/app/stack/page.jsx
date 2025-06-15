@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -276,7 +277,9 @@ export default function Stack() {
     <div className="w-full max-w-4xl p-6 mx-auto mt-12">
       <h2 className="mb-8 text-6xl font-bold text-center">Stack Tecnológico</h2>
       <div className="space-y-8">
-        <Editor />
+        <Suspense fallback={<div>Cargando...</div>}>
+          <Editor />
+        </Suspense>
         {Object.entries(techCategories).map(([category, technologies]) => (
           <div key={category} className="p-6 rounded-lg bg-white/5">
             <h3 className="mb-4 text-xl font-semibold">{category}</h3>
@@ -330,6 +333,7 @@ export const Editor = () => {
       <div className="space-y-8">
         <div className="p-6 rounded-lg bg-white/5">
           <div className="flex flex-col flex-wrap items-center justify-center gap-4">
+            <Suspense fallback={<div>Cargando...</div>}>
             <Link href={"https://www.cursor.com"}>
               <Image
                 src="/cursor.webp"
@@ -337,20 +341,23 @@ export const Editor = () => {
                 width={340}
                 height={340}
                 quality={100}
-                loading="lazy"
-                className="my-12 mr-3 transition-transform hover:scale-105"
-              />
-            </Link>
+                priority
+                  className="my-12 mr-3 transition-transform hover:scale-105"
+                />
+              </Link>
+            </Suspense>
             <div className="p-6 mx-auto my-12 max-w-7xl">
+            <Suspense fallback={<div>Cargando...</div>}>
               <Image
                 src="/cursorimage.webp"
                 alt="Cursor image"
                 width={1920}
                 height={1080}
                 quality={100}
-                loading="lazy"
-                className="transition-shadow shadow-lg rounded-2xl hover:shadow-xl"
-              />
+                priority
+                  className="transition-shadow shadow-lg rounded-2xl hover:shadow-xl"
+                />
+              </Suspense>
               <div className="mt-8 space-y-4">
                 <p className="text-justify text-gray-800 dark:text-gray-200">
                   Cursor representa la evolución de los entornos de desarrollo,
@@ -385,6 +392,7 @@ export const Editor = () => {
       <div className="space-y-8">
         <div className="p-6 rounded-lg bg-white/5">
           <div className="flex flex-col flex-wrap items-center justify-center gap-4">
+            <Suspense fallback={<div>Cargando...</div>}>
             <Link href={"https://www.warp.dev"}>
               <Image
                 src="/warp.webp"
@@ -392,7 +400,7 @@ export const Editor = () => {
                 width={340}
                 height={340}
                 quality={100}
-                loading="lazy"
+                priority
                 className="my-12 mr-3"
               />
             </Link>
@@ -402,9 +410,10 @@ export const Editor = () => {
               width={1920}
               height={1080}
               quality={100}
-              loading="lazy"
-              className="mb-12 shadow-2xl rounded-2xl"
-            />
+                priority
+                className="mb-12 shadow-2xl rounded-2xl"
+              />
+            </Suspense>
             <p className="text-justify text-gray-800 dark:text-gray-200">
               Warp es una terminal de nueva generación que redefine la forma en
               que los desarrolladores interactúan con su consola. Diseñada para

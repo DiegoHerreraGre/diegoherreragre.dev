@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import clsx from "clsx";
-
+import { Suspense } from "react";
 import Newsletter from "@/components/Newsletter";
 import { Card } from "@/components/Card";
 import { Container } from "@/components/Container";
@@ -119,36 +119,31 @@ function Role({ role }) {
   );
 }
 
+const RESUME_DATA = [
+  {
+    company: "MTM Diseño y Publicidad",
+    title: "Team Leader",
+    logo: logoMTM,
+    start: "2024",
+    end: { label: "Present", dateTime: new Date().getFullYear().toString() },
+  },
+  {
+    company: "MTM Diseño y Publicidad",
+    title: "Gestor de Base de Datos",
+    logo: logoMTM,
+    start: "2022",
+    end: "2024",
+  },
+  {
+    company: "Universidad Alberto Hurtado",
+    title: "Profesor",
+    logo: logoUAH,
+    start: "2019",
+    end: { label: "Present", dateTime: new Date().getFullYear().toString() },
+  },
+];
+
 function Resume() {
-  let resume = [
-    {
-      company: "MTM Diseño y Publicidad",
-      title: "Team Leader",
-      logo: logoMTM,
-      start: "2024",
-      end: {
-        label: "Present",
-        dateTime: new Date().getFullYear().toString(),
-      },
-    },
-    {
-      company: "MTM Diseño y Publicidad",
-      title: "Gestor de Base de Datos",
-      logo: logoMTM,
-      start: "2022",
-      end: "2024",
-    },
-    {
-      company: "Universidad Alberto Hurtado",
-      title: "Profesor",
-      logo: logoUAH,
-      start: "2019",
-      end: {
-        label: "Present",
-        dateTime: new Date().getFullYear().toString(),
-      },
-    },
-  ];
 
   return (
     <div className="p-6 border rounded-2xl border-zinc-100 dark:border-zinc-700/40">
@@ -157,7 +152,7 @@ function Resume() {
         <span className="ml-3">Trabajo</span>
       </h2>
       <ol className="mt-6 space-y-4">
-        {resume.map((role, roleIndex) => (
+        {RESUME_DATA.map((role, roleIndex) => (
           <Role key={roleIndex} role={role} />
         ))}
       </ol>
@@ -232,7 +227,9 @@ export default async function Home() {
       </Container>
       <Photos />
       <Container className="mt-32">
-        <Pricing />
+        <Suspense fallback={<div>Cargando...</div>}>
+          <Pricing />
+        </Suspense>
       </Container>
       <Container className="mt-2 md:mt-28">
         <div className="grid max-w-xl grid-cols-1 mx-auto gap-y-20 lg:max-w-none lg:grid-cols-2">
@@ -245,9 +242,15 @@ export default async function Home() {
             ))}
           </div>
           <div className="space-y-10 lg:pl-16 xl:pl-24">
-            <Newsletter />
-            <Resume />
+            <Suspense fallback={<div>Cargando...</div>}>
+              <Newsletter />
+            </Suspense>
           </div>
+        </div>
+        <div className="mt-32">
+          <Suspense fallback={<div>Cargando...</div>}>
+            <Resume />
+          </Suspense>
         </div>
       </Container>
     </>

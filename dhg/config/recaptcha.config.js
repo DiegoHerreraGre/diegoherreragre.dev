@@ -1,4 +1,3 @@
-import envs from './envs.config'
 import { NextResponse } from 'next/server'
 
 export async function validateRecaptcha(token, action, minScore = 0.7) {
@@ -10,7 +9,7 @@ export async function validateRecaptcha(token, action, minScore = 0.7) {
       }
     }
 
-    if (!envs.RECAPTCHA_SECRET_KEY) {
+    if (!process.env.RECAPTCHA_SECRET_KEY) {
       console.error('RECAPTCHA_SECRET_KEY no está configurada')
       return {
         success: false,
@@ -26,7 +25,7 @@ export async function validateRecaptcha(token, action, minScore = 0.7) {
           'Content-Type': 'application/x-www-form-urlencoded',
         },
         body: new URLSearchParams({
-          secret: envs.RECAPTCHA_SECRET_KEY,
+          secret: process.env.RECAPTCHA_SECRET_KEY,
           response: token,
         }),
       },

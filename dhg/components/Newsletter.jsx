@@ -1,77 +1,18 @@
 'use client'
 
-import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { Button } from '@/components/Button'
-import { useReCaptcha } from 'next-recaptcha-v3'
-import { RECAPTCHA_ACTIONS } from '@/config/recaptcha-actions.config'
+import { useNewsletter } from '@/hooks/useNewsletter'
 
 function Newsletter() {
-  const router = useRouter()
-  const { executeRecaptcha } = useReCaptcha()
-  const [status, setStatus] = useState({
-    message: '',
-    success: false,
-    loading: false,
-  })
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setStatus({ ...status, loading: true })
-
-    try {
-      const recaptchaToken = await executeRecaptcha(RECAPTCHA_ACTIONS.CONTACTO)
-      const formData = new FormData()
-      formData.append('recaptchaToken', recaptchaToken)
-      formData.append('email', e.target.email.value)
-      formData.append('selectOption', e.target.selectOption.value)
-
-      const formDataObj = Object.fromEntries(formData.entries())
-
-      if (!recaptchaToken) {
-        throw new Error('Token de reCAPTCHA requerido')
-      }
-
-      if (!formDataObj.email || !formDataObj.selectOption) {
-        throw new Error('Email y selectOption son requeridos')
-      }
-
-      const response = await fetch('/api/newsletter', {
-        method: 'POST',
-        body: formData,
-      })
-
-      const data = await response.json()
-
-      if (response.ok) {
-        setStatus({
-          message: data.message || '¡Gracias por contactarme!',
-          success: true,
-          loading: false,
-        })
-        e.target.reset()
-        setTimeout(() => {
-          router.push('/thank-you')
-        }, 1000)
-      } else {
-        throw new Error(data.message || 'Error al procesar el contacto')
-      }
-    } catch (error) {
-      setStatus({
-        message: error.message || 'Ocurrió un error, intenta nuevamente',
-        success: false,
-        loading: false,
-      })
-    }
-  }
+  const { handleSubmit, status } = useNewsletter()
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="rounded-2xl border border-zinc-100 p-6 dark:border-zinc-700/40"
+      className="p-6 border rounded-2xl border-zinc-100 dark:border-zinc-700/40"
     >
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
-        <MailIcon className="h-6 w-6 flex-none" />
+        <MailIcon className="flex-none w-6 h-6" />
         <span className="ml-3 tracking-wider uppercase">
           ¡Contáctate conmigo!
         </span>
@@ -79,7 +20,7 @@ function Newsletter() {
       <p className="mt-2 text-sm leading-6 text-zinc-600 dark:text-zinc-400">
         Contáctate para recibir información sobre mis servicios.
       </p>
-      <div className="mt-6 flex flex-col gap-4">
+      <div className="flex flex-col gap-4 mt-6">
         <input
           type="email"
           name="email"

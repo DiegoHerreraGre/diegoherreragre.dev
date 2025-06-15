@@ -2,14 +2,9 @@ import assert from "assert";
 import * as cheerio from "cheerio";
 import { Feed } from "feed";
 import PermisionMiddleware from "@/middlewares/permisions.middlewares";
-import dotenv from "dotenv";
-import envs from "@/config/envs.config";
-
-dotenv.config();
 
 export async function GET(req) {
-  let { NEXT_PUBLIC_SITE_URL } = envs;
-  let siteUrl = NEXT_PUBLIC_SITE_URL;
+  let siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
   if (!siteUrl) {
     throw Error("Missing NEXT_PUBLIC_SITE_URL environment variable");

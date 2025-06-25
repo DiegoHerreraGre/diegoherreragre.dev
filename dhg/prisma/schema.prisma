@@ -1,17 +1,17 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../lib/generated/prisma"
+    provider = "prisma-client-js"
+    output   = "../lib/generated/prisma"
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+    provider = "mysql"
+    url      = env("DATABASE_URL")
 }
 
 model Contacto {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  selectOption String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+    id           String   @id @default(uuid())
+    email        String   @unique
+    selectOption String
+    createdAt    DateTime @default(now())
+    updatedAt    DateTime @updatedAt
 }

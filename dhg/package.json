@@ -21,12 +21,16 @@
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:studio": "prisma studio",
-    "update": "ncu -u && ppnpm install"
+    "update": "ncu -u && ppnpm install",
+    "test:turso": "node scripts/test-turso.js",
+    "test:api": "node scripts/test-api.js",
+    "test:all": "npm run test:turso && npm run test:api"
   },
   "browserslist": "defaults, not ie <= 11",
   "dependencies": {
     "@headlessui/react": "^2.2.4",
     "@heroicons/react": "^2.2.0",
+    "@libsql/client": "^0.15.9",
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
     "@next/mdx": "^15.3.3",
@@ -61,5 +65,6 @@
     "prettier-plugin-tailwindcss": "^0.6.12",
     "prisma": "^6.9.0",
     "sharp": "0.34.2"
-  }
+  },
+  "type": "module"
 }

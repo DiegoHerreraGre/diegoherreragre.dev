@@ -98,7 +98,7 @@ async function runDeployment() {
     await executeCommand('git log --oneline -5', 8, 'Mostrando últimos commits');
     
     // Dependencies
-    await executeCommand('pnpm install --frozen-lockfile', 9, 'Instalando dependencias');
+    await executeCommand('pnpm install', 9, 'Instalando dependencias');
     
     // Build process
     await executeCommand('pnpm run build', 10, 'Compilando aplicación');

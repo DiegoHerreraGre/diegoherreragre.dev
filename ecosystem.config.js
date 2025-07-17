@@ -12,7 +12,7 @@ module.exports = {
             env: {
                 NODE_ENV: 'production',
             },
-            max_memory_restart: '1G',
+            max_memory_restart: '256M',
         },
     ],
 };

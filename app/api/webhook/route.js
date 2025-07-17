@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { exec } from "child_process";
+import { exec, execSync } from "child_process";
 import crypto from "crypto";
 
 export const config = {
@@ -67,7 +67,7 @@ export async function POST(request) {
       pusher: payload.pusher?.name,
       event,
     });
-    
+
   } catch (err) {
     console.error("[WEBHOOK] ❌ Error al parsear payload:", err);
     return NextResponse.json(
@@ -83,46 +83,55 @@ export async function POST(request) {
   if (event === "push" && isMain) {
     console.log("[DEPLOY] ✅ Push a 'main' detectado. Iniciando proceso de actualización...");
 
-    // Script para asegurar repo actualizado y build
-    const updateScript = `
-      echo "[DEPLOY] 1️⃣ Cambiando a directorio del proyecto..."
-      cd /home/dhg/domains/diegoherreragre.dev/dhg
+    // Ejecutar el deployment en background con mejor logging
+    setTimeout(() => {
+      console.log("[DEPLOY] 🚀 Iniciando deployment asíncrono...");
 
-      echo "[DEPLOY] 2️⃣ Fetch de últimos cambios desde origin..."
-      git fetch origin
+      try {
+        // Comando 1: Cambiar directorio y fetch
+        console.log("[DEPLOY] 1️⃣ Cambiando a directorio del proyecto...");
+        process.chdir('/home/dhg/domains/diegoherreragre.dev/dhg');
 
-      echo "[DEPLOY] 3️⃣ Reseteando HEAD a origin/main..."
-      git reset --hard origin/main
+        console.log("[DEPLOY] 2️⃣ Fetch de últimos cambios desde origin...");
+        const fetchResult = execSync('git fetch origin', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Fetch completado:", fetchResult || 'Sin output');
 
-      echo "[DEPLOY] 4️⃣ Instalando dependencias con pnpm..."
-      pnpm install
+        console.log("[DEPLOY] 3️⃣ Reseteando HEAD a origin/main...");
+        const resetResult = execSync('git reset --hard origin/main', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Reset completado:", resetResult);
 
-      echo "[DEPLOY] 5️⃣ Compilando proyecto con pnpm build..."
-      pnpm build
+        console.log("[DEPLOY] 4️⃣ Instalando dependencias con pnpm...");
+        const installResult = execSync('pnpm install', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Instalación completada:", installResult.slice(-200)); // Solo últimas 200 chars
 
-      echo "[DEPLOY] 6️⃣ Generando cliente Prisma..."
-      pnpm prisma generate
+        console.log("[DEPLOY] 5️⃣ Compilando proyecto con pnpm build...");
+        const buildResult = execSync('pnpm build', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Build completado:", buildResult.slice(-200));
 
-      echo "[DEPLOY] 7️⃣ Validando esquema Prisma..."
-      pnpm prisma validate
+        console.log("[DEPLOY] 6️⃣ Generando cliente Prisma...");
+        const prismaGenResult = execSync('pnpm prisma generate', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Prisma generate completado:", prismaGenResult);
 
-      echo "[DEPLOY] 8️⃣ Aplicando cambios de BD con Prisma db push..."
-      pnpm prisma db push
+        console.log("[DEPLOY] 7️⃣ Validando esquema Prisma...");
+        const prismaValidateResult = execSync('pnpm prisma validate', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Prisma validate completado:", prismaValidateResult);
 
-      echo "[DEPLOY] 9️⃣ Recargando aplicación..."
-      pnpm run reload
+        console.log("[DEPLOY] 8️⃣ Aplicando cambios de BD con Prisma db push...");
+        const prismaPushResult = execSync('pnpm prisma db push', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Prisma db push completado:", prismaPushResult);
 
-      echo "[DEPLOY] 🚀 Despliegue finalizado correctamente."
-    `;
+        console.log("[DEPLOY] 9️⃣ Recargando aplicación...");
+        const reloadResult = execSync('pnpm run reload', { encoding: 'utf8' });
+        console.log("[DEPLOY] 🟢 Reload completado:", reloadResult);
 
-    exec(updateScript, (err, stdout, stderr) => {
-      if (err) {
-        console.error("[DEPLOY] ❌ Error durante el despliegue:", err);
-        return;
+        console.log("[DEPLOY] 🚀 Despliegue finalizado correctamente.");
+
+      } catch (error) {
+        console.error("[DEPLOY] ❌ Error durante el despliegue:", error.message);
+        console.error("[DEPLOY] ❌ Error completo:", error);
       }
-      console.log("[DEPLOY] 🟢 STDOUT del proceso:\n", stdout);
-      if (stderr) console.warn("[DEPLOY] 🟡 STDERR del proceso:\n", stderr);
-    });
+    }, 100); // Pequeño delay para permitir que la respuesta se envíe primero
+
   } else {
     console.log(`[WEBHOOK] ℹ️ Evento ignorado: ${event} en ref ${ref}`);
   }

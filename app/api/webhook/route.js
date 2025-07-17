@@ -67,6 +67,7 @@ export async function POST(request) {
       pusher: payload.pusher?.name,
       event,
     });
+    
   } catch (err) {
     console.error("[WEBHOOK] ❌ Error al parsear payload:", err);
     return NextResponse.json(

@@ -1,7 +1,127 @@
 import { NextResponse } from "next/server";
 
-import { exec, execSync } from "child_process";
+import { exec, execSync, spawn } from "child_process";
 import crypto from "crypto";
+import { promisify } from "util";
+
+const execAsync = promisify(exec);
+
+/**
+ * Utilidad para logging estilo Vercel con timestamps y formato mejorado
+ */
+const logger = {
+  info: (message, data) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ℹ️  ${message}`, data ? JSON.stringify(data, null, 2) : '');
+  },
+  success: (message, data) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] ✅ ${message}`, data ? JSON.stringify(data, null, 2) : '');
+  },
+  error: (message, error) => {
+    const timestamp = new Date().toISOString();
+    console.error(`[${timestamp}] ❌ ${message}`);
+    if (error) {
+      console.error(`[${timestamp}] 📋 Error details:`, error);
+    }
+  },
+  warn: (message, data) => {
+    const timestamp = new Date().toISOString();
+    console.warn(`[${timestamp}] ⚠️  ${message}`, data ? JSON.stringify(data, null, 2) : '');
+  },
+  deploy: (step, message, data) => {
+    const timestamp = new Date().toISOString();
+    console.log(`[${timestamp}] 🚀 [STEP ${step}] ${message}`, data ? JSON.stringify(data, null, 2) : '');
+  }
+};
+
+/**
+ * Ejecuta un comando y retorna el resultado con logging detallado
+ */
+async function executeCommand(command, step, description) {
+  logger.deploy(step, `${description}...`);
+  
+  try {
+    const startTime = Date.now();
+    const { stdout, stderr } = await execAsync(command, { 
+      cwd: '/home/dhg/domains/diegoherreragre.dev/dhg',
+      maxBuffer: 1024 * 1024 * 10 // 10MB buffer
+    });
+    
+    const duration = Date.now() - startTime;
+    
+    if (stdout) {
+      logger.success(`${description} completado en ${duration}ms`, {
+        command,
+        output: stdout.trim().slice(-500) // Últimos 500 chars
+      });
+    }
+    
+    if (stderr) {
+      logger.warn(`${description} - stderr`, {
+        command,
+        stderr: stderr.trim()
+      });
+    }
+    
+    return { stdout, stderr, success: true };
+  } catch (error) {
+    logger.error(`${description} falló`, {
+      command,
+      error: error.message,
+      code: error.code,
+      stdout: error.stdout?.toString(),
+      stderr: error.stderr?.toString()
+    });
+    throw error;
+  }
+}
+
+/**
+ * Proceso de deployment con logging detallado estilo Vercel
+ */
+async function runDeployment() {
+  const deploymentId = `deploy-${Date.now()}`;
+  logger.info(`🚀 Iniciando deployment`, { deploymentId });
+  
+  try {
+    // Información del sistema
+    await executeCommand('pwd', 1, 'Verificando directorio actual');
+    await executeCommand('whoami', 2, 'Verificando usuario');
+    await executeCommand('node --version', 3, 'Verificando versión de Node.js');
+    await executeCommand('pnpm --version', 4, 'Verificando versión de pnpm');
+    
+    // Git operations
+    await executeCommand('git status', 5, 'Verificando estado del repositorio');
+    await executeCommand('git fetch origin', 6, 'Descargando últimos cambios');
+    await executeCommand('git reset --hard origin/main', 7, 'Reseteando a origin/main');
+    await executeCommand('git log --oneline -5', 8, 'Mostrando últimos commits');
+    
+    // Dependencies
+    await executeCommand('pnpm install --frozen-lockfile', 9, 'Instalando dependencias');
+    
+    // Build process
+    await executeCommand('pnpm run build', 10, 'Compilando aplicación');
+    
+    // Prisma operations
+    await executeCommand('pnpm prisma generate', 11, 'Generando cliente Prisma');
+    await executeCommand('pnpm prisma validate', 12, 'Validando esquema Prisma');
+    await executeCommand('pnpm prisma db push', 13, 'Aplicando cambios de base de datos');
+    
+    // Reload application
+    await executeCommand('pnpm run reload', 14, 'Recargando aplicación');
+    
+    logger.success('🎉 Deployment completado exitosamente', { deploymentId });
+    
+  } catch (error) {
+    logger.error('💥 Deployment falló', {
+      deploymentId,
+      error: error.message,
+      stack: error.stack
+    });
+    throw error;
+  }
+}
 
 export const config = {
   api: {
@@ -51,7 +171,7 @@ export async function POST(request) {
   const digest = `sha1=${hmac.update(rawBody).digest("hex")}`;
 
   if (signature !== digest) {
-    console.warn("[WEBHOOK] 🚫 Firma inválida recibida. Descartando petición.");
+    logger.warn("🚫 Firma inválida recibida. Descartando petición.");
     return NextResponse.json(
       { status: "error", message: "Invalid signature" },
       { status: 401 }
@@ -61,15 +181,16 @@ export async function POST(request) {
   let payload;
   try {
     payload = JSON.parse(rawBody);
-    console.info("[WEBHOOK] 🔔 Payload recibido correctamente:", {
+    logger.info("🔔 Webhook recibido correctamente", {
       ref: payload.ref,
       repository: payload.repository?.full_name,
       pusher: payload.pusher?.name,
       event,
+      commits: payload.commits?.length || 0
     });
-
+      
   } catch (err) {
-    console.error("[WEBHOOK] ❌ Error al parsear payload:", err);
+    logger.error("❌ Error al parsear payload", err);
     return NextResponse.json(
       { status: "error", message: "Invalid payload" },
       { status: 400 }
@@ -81,60 +202,23 @@ export async function POST(request) {
 
   // Solo actuamos ante push a main
   if (event === "push" && isMain) {
-    console.log("[DEPLOY] ✅ Push a 'main' detectado. Iniciando proceso de actualización...");
+    logger.success("✅ Push a 'main' detectado. Iniciando deployment...");
 
-    // Ejecutar el deployment en background con mejor logging
-    setTimeout(() => {
-      console.log("[DEPLOY] 🚀 Iniciando deployment asíncrono...");
-
+    // Ejecutar deployment asíncrono con logging mejorado
+    setImmediate(async () => {
       try {
-        // Comando 1: Cambiar directorio y fetch
-        console.log("[DEPLOY] 1️⃣ Cambiando a directorio del proyecto...");
-        process.chdir('/home/dhg/domains/diegoherreragre.dev/dhg');
-
-        console.log("[DEPLOY] 2️⃣ Fetch de últimos cambios desde origin...");
-        const fetchResult = execSync('git fetch origin', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Fetch completado:", fetchResult || 'Sin output');
-
-        console.log("[DEPLOY] 3️⃣ Reseteando HEAD a origin/main...");
-        const resetResult = execSync('git reset --hard origin/main', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Reset completado:", resetResult);
-
-        console.log("[DEPLOY] 4️⃣ Instalando dependencias con pnpm...");
-        const installResult = execSync('pnpm install', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Instalación completada:", installResult.slice(-200)); // Solo últimas 200 chars
-
-        console.log("[DEPLOY] 5️⃣ Compilando proyecto con pnpm build...");
-        const buildResult = execSync('pnpm build', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Build completado:", buildResult.slice(-200));
-
-        console.log("[DEPLOY] 6️⃣ Generando cliente Prisma...");
-        const prismaGenResult = execSync('pnpm prisma generate', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Prisma generate completado:", prismaGenResult);
-
-        console.log("[DEPLOY] 7️⃣ Validando esquema Prisma...");
-        const prismaValidateResult = execSync('pnpm prisma validate', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Prisma validate completado:", prismaValidateResult);
-
-        console.log("[DEPLOY] 8️⃣ Aplicando cambios de BD con Prisma db push...");
-        const prismaPushResult = execSync('pnpm prisma db push', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Prisma db push completado:", prismaPushResult);
-
-        console.log("[DEPLOY] 9️⃣ Recargando aplicación...");
-        const reloadResult = execSync('pnpm run reload', { encoding: 'utf8' });
-        console.log("[DEPLOY] 🟢 Reload completado:", reloadResult);
-
-        console.log("[DEPLOY] 🚀 Despliegue finalizado correctamente.");
-
+        await runDeployment();
       } catch (error) {
-        console.error("[DEPLOY] ❌ Error durante el despliegue:", error.message);
-        console.error("[DEPLOY] ❌ Error completo:", error);
+        logger.error("� Error crítico en deployment", error);
       }
-    }, 100); // Pequeño delay para permitir que la respuesta se envíe primero
-
+    });
+    
   } else {
-    console.log(`[WEBHOOK] ℹ️ Evento ignorado: ${event} en ref ${ref}`);
+    logger.info(`ℹ️ Evento ignorado: ${event} en ref ${ref}`);
   }
 
-  return NextResponse.json({ status: "ok" });
+  return NextResponse.json({ 
+    status: "ok",
+    message: isMain && event === "push" ? "Deployment iniciado" : "Evento procesado"
+  });
 }

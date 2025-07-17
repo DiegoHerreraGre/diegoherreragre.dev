@@ -1,0 +1,44 @@
+@import 'tailwindcss';
+@import './prism.css' layer(components);
+@config '../tailwind.config.js';
+
+
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
+
+body {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+/* Prevenir selección de texto */
+.no-select {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Prevenir arrastrar imágenes */
+.no-drag {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+.recaptcha-container {
+  display: none !important;
+}
+
+.grecaptcha-badge {
+  display: none !important;
+}

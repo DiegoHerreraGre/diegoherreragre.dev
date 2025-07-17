@@ -1,0 +1,88 @@
+{
+    "name": "Diego Herrera Gre - Desarrollador Full Stack",
+    "short_name": "DHG Portfolio",
+    "description": "Portafolio profesional de Diego Herrera Gre, desarrollador Full Stack especializado en React, Next.js, Node.js y tecnologías web modernas",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "lang": "es-ES",
+    "dir": "ltr",
+    "categories": ["business", "portfolio", "technology", "developer"],
+    "icons": [
+        {
+            "src": "/icons/android-chrome-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/android-chrome-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/icons/maskable-icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "screenshots": [
+        {
+            "src": "/screenshots/desktop-screenshot.webp",
+            "sizes": "1280x720",
+            "type": "image/webp",
+            "form_factor": "wide",
+            "label": "Vista de escritorio del portafolio"
+        },
+        {
+            "src": "/screenshots/mobile-screenshot.webp",
+            "sizes": "375x667",
+            "type": "image/webp",
+            "form_factor": "narrow",
+            "label": "Vista móvil del portafolio"
+        }
+    ],
+    "shortcuts": [
+        {
+            "name": "Ver Proyectos",
+            "short_name": "Proyectos",
+            "description": "Explora mis proyectos de desarrollo web",
+            "url": "/projects",
+            "icons": [
+                {
+                    "src": "/icons/projects-shortcut.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Leer Artículos",
+            "short_name": "Blog",
+            "description": "Lee artículos sobre desarrollo web",
+            "url": "/articles",
+            "icons": [
+                {
+                    "src": "/icons/blog-shortcut.png",
+                    "sizes": "96x96"
+                }
+            ]
+        },
+        {
+            "name": "Contactar",
+            "short_name": "Contacto",
+            "description": "Contacta conmigo para proyectos",
+            "url": "/about#contact",
+            "icons": [
+                {
+                    "src": "/icons/contact-shortcut.png",
+                    "sizes": "96x96"
+                }
+            ]
+        }
+    ]
+}

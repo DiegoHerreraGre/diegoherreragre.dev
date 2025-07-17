@@ -1,0 +1,145 @@
+import { ArticleLayout } from "@/components/ArticleLayout";
+import zed from "./zed.webp";
+import React from "react";
+
+export function LogosGithubCopilot(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1.24em"
+      height="1em"
+      viewBox="0 0 256 208"
+      {...props}
+    >
+      <path d="M205.28 31.36c14.096 14.88 20.016 35.2 22.512 63.68c6.626 0 12.805 1.47 16.976 7.152l7.792 10.56A17.55 17.55 0 0 1 256 123.2v28.688c-.008 3.704-1.843 7.315-4.832 9.504C215.885 187.222 172.35 208 128 208c-49.066 0-98.19-28.273-123.168-46.608c-2.989-2.189-4.825-5.8-4.832-9.504V123.2c0-3.776 1.2-7.424 3.424-10.464l7.792-10.544c4.173-5.657 10.38-7.152 16.992-7.152c2.496-28.48 8.4-48.8 22.512-63.68C77.331 3.165 112.567.06 127.552 0H128c14.72 0 50.4 2.88 77.28 31.36m-77.264 47.376c-3.04 0-6.544.176-10.272.544c-1.312 4.896-3.248 9.312-6.08 12.128c-11.2 11.2-24.704 12.928-31.936 12.928c-6.802 0-13.927-1.42-19.744-5.088c-5.502 1.808-10.786 4.415-11.136 10.912c-.586 12.28-.637 24.55-.688 36.824c-.026 6.16-.05 12.322-.144 18.488c.024 3.579 2.182 6.903 5.44 8.384C79.936 185.92 104.976 192 128.016 192c23.008 0 48.048-6.08 74.512-18.144c3.258-1.48 5.415-4.805 5.44-8.384c.317-18.418.062-36.912-.816-55.312h.016c-.342-6.534-5.648-9.098-11.168-10.912c-5.82 3.652-12.927 5.088-19.728 5.088c-7.232 0-20.72-1.728-31.936-12.928c-2.832-2.816-4.768-7.232-6.08-12.128a106 106 0 0 0-10.24-.544m-26.941 43.93c5.748 0 10.408 4.66 10.408 10.409v19.183c0 5.749-4.66 10.409-10.408 10.409s-10.408-4.66-10.408-10.409v-19.183c0-5.748 4.66-10.408 10.408-10.408m53.333 0c5.749 0 10.409 4.66 10.409 10.409v19.183c0 5.749-4.66 10.409-10.409 10.409c-5.748 0-10.408-4.66-10.408-10.409v-19.183c0-5.748 4.66-10.408 10.408-10.408M81.44 28.32c-11.2 1.12-20.64 4.8-25.44 9.92c-10.4 11.36-8.16 40.16-2.24 46.24c4.32 4.32 12.48 7.2 21.28 7.2c6.72 0 19.52-1.44 30.08-12.16c4.64-4.48 7.52-15.68 7.2-27.04c-.32-9.12-2.88-16.64-6.72-19.84c-4.16-3.68-13.6-5.28-24.16-4.32m68.96 4.32c-3.84 3.2-6.4 10.72-6.72 19.84c-.32 11.36 2.56 22.56 7.2 27.04c10.56 10.72 23.36 12.16 30.08 12.16c8.8 0 16.96-2.88 21.28-7.2c5.92-6.08 8.16-34.88-2.24-46.24c-4.8-5.12-14.24-8.8-25.44-9.92c-10.56-.96-20 .64-24.16 4.32M128 56c-2.56 0-5.6.16-8.96.48c.32 1.76.48 3.68.64 5.76c0 1.44 0 2.88-.16 4.48c3.2-.32 5.92-.32 8.48-.32s5.28 0 8.48.32c-.16-1.6-.16-3.04-.16-4.48c.16-2.08.32-4 .64-5.76c-3.36-.32-6.4-.48-8.96-.48"></path>
+    </svg>
+  );
+}
+
+export const article = {
+  author: "Diego Herrera Gré",
+  date: "2024-04-27",
+  title: "Zed: El editor del futuro escrito en Rust",
+  description:
+    "Zed emerge como un editor de código revolucionario, aprovechando el poder de Rust para ofrecer rendimiento excepcional, bajo consumo de recursos y un impacto ambiental reducido.",
+};
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+};
+
+export default (props) => <ArticleLayout article={article} {...props} />;
+
+En un momento donde la eficiencia energética y el rendimiento son cruciales, Zed se presenta como un editor de código revolucionario que está redefiniendo nuestras expectativas sobre las herramientas de desarrollo.
+
+<Image src={zed} alt="zed" quality={100} loading="lazy" />
+
+## Innovación Impulsada por Rust
+
+Zed representa una nueva generación de editores de código, construido desde cero en Rust. Esta decisión arquitectónica fundamental le proporciona ventajas significativas:
+
+- Rendimiento excepcional con un uso mínimo de recursos
+- Gestión de memoria segura y eficiente
+- Operaciones concurrentes optimizadas
+- Estabilidad superior
+
+```rust
+// Ejemplo de la eficiencia en el manejo de archivos grandes
+pub struct Editor {
+    buffer: Buffer,
+    syntax_highlighter: SyntaxHighlighter,
+}
+
+impl Editor {
+    pub fn new() -> Self {
+        Editor {
+            buffer: Buffer::new(),
+            syntax_highlighter: SyntaxHighlighter::default(),
+        }
+    }
+
+    pub fn open_file(&mut self, path: &Path) -> Result<(), Error> {
+        // Implementación eficiente de apertura de archivos
+    }
+}
+```
+
+## Eficiencia Energética y Sostenibilidad
+
+A diferencia de editores basados en Electron como VSCode, Zed demuestra un compromiso con la sostenibilidad:
+
+- Consume hasta 70% menos RAM que VSCode
+- Utilización de CPU significativamente menor
+- Reducción de la huella de carbono en el desarrollo
+- Arranque instantáneo y respuesta inmediata
+
+## Características Revolucionarias
+
+Zed introduce innovaciones que mejoran la experiencia de desarrollo:
+
+1. Colaboración en tiempo real nativa
+2. Sistema de búsqueda ultrarrápido
+3. Integración de IA optimizada
+4. Terminal integrada de alto rendimiento
+5. Soporte multilenguaje eficiente
+
+```rust
+// Ejemplo de colaboración en tiempo real
+pub struct CollaborationSession {
+    document_id: String,
+    participants: Vec<User>,
+    changes: VecDeque<Change>,
+}
+
+impl CollaborationSession {
+    pub fn new(document_id: String) -> Self {
+        CollaborationSession {
+            document_id,
+            participants: Vec::new(),
+            changes: VecDeque::new(),
+        }
+    }
+}
+```
+
+El código fuente abierto de Zed permite una transparencia total y mejora continua por parte de la comunidad. Los desarrolladores pueden verificar y contribuir al código, asegurando que el editor evolucione según las necesidades reales de la comunidad.
+
+Características principales que lo distinguen:
+
+- Código completamente open source
+- Arquitectura moderna y modular
+- Extensibilidad robusta
+- Actualizaciones frecuentes impulsadas por la comunidad
+
+```rust
+#[derive(Debug)]
+struct Performance {
+    memory_usage: f64,
+    cpu_usage: f64,
+    startup_time: Duration,
+}
+
+impl Performance {
+    fn measure() -> Self {
+        // Implementación de métricas de rendimiento
+        Performance {
+            memory_usage: 0.3, // GB
+            cpu_usage: 5.0,    // %
+            startup_time: Duration::from_millis(100),
+        }
+    }
+}
+```
+
+<div className="flex items-center gap-2 rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-800">
+  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+    Revisado por Github Copilot
+  </span>
+  <LogosGithubCopilot
+    width="32"
+    height="32"
+    alt="logo copilot"
+    className="color-inverse text-black dark:invert"
+  />
+</div>

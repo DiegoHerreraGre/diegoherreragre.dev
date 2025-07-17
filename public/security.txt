@@ -1,0 +1,14 @@
+# Contact Information
+Contact: mailto:dherrera@mtm.cl
+Expires: 2030-11-12T03:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://diegoherreragre.dev/security.txt
+
+# Encryption
+Encryption: https://diegoherreragre.dev/pgp-key.txt
+
+# Preferred Languages
+Preferred-Languages: en, es
+
+# Policy
+Policy: https://diegoherreragre.dev/security

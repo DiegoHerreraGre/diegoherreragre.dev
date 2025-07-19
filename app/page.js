@@ -148,7 +148,7 @@ function Resume() {
     <div className="p-6 border rounded-2xl border-zinc-100 dark:border-zinc-700/40">
       <h2 className="flex text-sm font-semibold text-zinc-900 dark:text-zinc-100">
         <BriefcaseIcon className="flex-none w-6 h-6" />
-        <span className="ml-3">Trabajo</span>
+        <span className="ml-3">Experiencia de alto impacto</span>
       </h2>
       <ol className="mt-6 space-y-4">
         {RESUME_DATA.map((role, roleIndex) => (
@@ -198,12 +198,13 @@ export default async function Home() {
       <Container className="mt-9">
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold tracking-tight text-zinc-800 sm:text-5xl dark:text-zinc-100">
-            Desarrollador Full Stack y cientista político
+            Desarrollo web a la velocidad de la luz
           </h1>
           <p className="mt-6 text-base text-zinc-600 dark:text-zinc-400">
-            Me dedico al desarrollo web integral y la gestión de proyectos
-            digitales. Además, soy un apasionado por la tecnología, la política,
-            la historia y la economía.
+            Combino estrategia empresarial y herramientas de IA avanzadas para 
+            crear soluciones web excepcionales en tiempo récord. Mi metodología 
+            revolucionaria reduce los tiempos de desarrollo hasta un 70% sin 
+            comprometer la calidad ni la innovación.
           </p>
           <div className="flex gap-8 mt-6">
             <SocialLink
@@ -234,7 +235,7 @@ export default async function Home() {
         <div className="grid max-w-xl grid-cols-1 mx-auto gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
             <h2 className="text-2xl font-bold tracking-tight text-zinc-800 dark:text-zinc-100">
-              Últimos artículos
+              Innovación a ritmo acelerado
             </h2>
             {articles.slice(-4, -1).map((article) => (
               <Article key={article.slug} article={article} />

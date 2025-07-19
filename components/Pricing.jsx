@@ -4,9 +4,8 @@ const tiers = [
   {
     name: 'Landing Page Básica',
     id: 'tier-basic',
-    priceMonthly: '4 UF',
     description:
-      'Página de aterrizaje ideal para promocionar un producto o servicio',
+      'Página de aterrizaje ideal para promocionar un producto o servicio con desarrollo ultrarrápido',
     features: [
       'Diseño con TailwindCSS',
       'Landing responsive',
@@ -20,8 +19,7 @@ const tiers = [
   {
     name: 'Sitio Web Profesional',
     id: 'tier-pro',
-    priceMonthly: '15 UF',
-    description: 'Sitio web completo para pequeñas y medianas empresas',
+    description: 'Sitio web completo desarrollado con IA para pequeñas y medianas empresas',
     features: [
       'Todo lo del plan básico más:',
       'Hasta 5 páginas',
@@ -35,8 +33,7 @@ const tiers = [
   {
     name: 'Solución Empresarial',
     id: 'tier-enterprise',
-    priceMonthly: 'Desde 40 UF',
-    description: 'Desarrollo web personalizado para grandes empresas',
+    description: 'Desarrollo web personalizado con estrategia IA para grandes empresas',
     features: [
       'Todo lo del plan profesional más:',
       'Páginas ilimitadas',
@@ -52,8 +49,7 @@ const tiers = [
   {
     name: 'Plan de Migración',
     id: 'tier-migration',
-    priceMonthly: '2 UF',
-    description: 'Actualiza tu sitio web a tecnologías modernas',
+    description: 'Actualiza tu sitio web a tecnologías modernas a velocidad récord',
     features: [
       'Migración de contenido',
       'Evaluación de sitio web',
@@ -66,8 +62,7 @@ const tiers = [
   {
     name: 'Mantenimiento Web',
     id: 'tier-maintenance',
-    priceMonthly: '2 UF mensuales',
-    description: 'Mantén tu sitio web funcionando de manera óptima',
+    description: 'Mantén tu sitio web funcionando de manera óptima con monitoreo inteligente',
     features: [
       'Actualizaciones de seguridad',
       'Backups diarios',
@@ -82,8 +77,7 @@ const tiers = [
   {
     name: 'Desarrollo Avanzado de API',
     id: 'tier-advanced',
-    priceMonthly: '20 UF',
-    description: 'Desarrollo de API para aplicaciones web',
+    description: 'Desarrollo de API escalables con arquitectura de alto rendimiento',
     features: [
       'API RESTful',
       'Integración de APIs',
@@ -106,12 +100,12 @@ export default function Pricing() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-4xl text-center">
           <p className="mt-2 animate-pulse text-5xl font-semibold tracking-tight text-balance text-gray-900 antialiased sm:text-6xl dark:text-gray-200">
-            Un precio solo para ti
+            Soluciones a velocidad empresarial
           </p>
         </div>
         <p className="mx-auto mt-6 max-w-2xl text-center text-lg font-medium text-pretty text-gray-600 sm:text-xl/8 dark:text-gray-400">
-          Escoge el plan que mejor se adapte a tus necesidades para tener una
-          asesoría personalizada y un servicio de calidad.
+          Cada plan está diseñado para maximizar la velocidad de desarrollo 
+          combinando estrategia empresarial con inteligencia artificial avanzada.
         </p>
         <div className="isolate mx-auto mt-16 grid max-w-md grid-cols-1 gap-y-8 sm:mt-20 lg:mx-0 lg:max-w-none lg:grid-cols-3">
           {tiers.map((tier, tierIdx) => (
@@ -151,11 +145,6 @@ export default function Pricing() {
                 </div>
                 <p className="mt-4 text-sm/6 text-gray-600 dark:text-gray-300">
                   {tier.description}
-                </p>
-                <p className="mt-6 flex items-baseline gap-x-1">
-                  <span className="text-4xl font-semibold tracking-tight text-gray-900 dark:text-gray-300">
-                    {tier.priceMonthly}
-                  </span>
                 </p>
                 <ul
                   role="list"

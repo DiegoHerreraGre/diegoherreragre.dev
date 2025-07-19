@@ -45,6 +45,23 @@ const projects = [
     MySQL: true,
   },
   {
+    name: "Magnesol",
+    description:
+      "Sitio web para la empresa Magnesol, que es un mini e-commerce de productos de para freir aceite usando una tecnología que está mucho más alineada con la sustentabilidad, el impacto ambiental y el ahorro de energía",
+    link: {
+      href: "https://magnesol.cl",
+      label: "Magnesol",
+    },
+    logo: NextJS,
+    production: false,
+    tailwind: true,
+    mongodb: false,
+    creation: false,
+    strapi: false,
+    wordpress: false,
+    MySQL: true,
+  },
+  {
     name: "Estoril 820 - FDI",
     description:
       "Sitio web inmobiliario moderno construido con tecnologías de última generación para reemplazar la antigua versión en WordPress. Diseñado con un enfoque dinámico de marketing digital para maximizar las ventas de propiedades. La arquitectura headless garantiza tiempos de carga ultrarrápidos y una experiencia de usuario fluida optimizada para conversiones",

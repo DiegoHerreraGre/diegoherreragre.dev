@@ -31,10 +31,6 @@ const nextConfig = {
     ],
     formats: ["image/avif", "image/webp"],
   },
-  reactStrictMode: true,
-  // Optimizaciones SEO
-  poweredByHeader: false, // Oculta el header "X-Powered-By: Next.js"
-  compress: true, // Compresión gzip automática
   async redirects() {
     return [
       // Redirecciones 301 para mantener SEO

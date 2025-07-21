@@ -9,6 +9,7 @@ import Strapi from "@/images/logos/strapi.svg";
 import PHP from "@/images/logos/php.svg";
 import WordPress from "@/images/logos/wordpress.svg";
 import MySQL from "@/images/logos/mysql.svg";
+import Shadcn from "@/images/logos/shadcn.svg";
 
 const projects = [
   {
@@ -22,10 +23,12 @@ const projects = [
     logo: NextJS,
     production: true,
     tailwind: true,
-    mongodb: true,
+    mongodb: false,
     creation: false,
     strapi: true,
     wordpress: false,
+    MySQL: true,
+    shadcn: true,
   },
   {
     name: "MTM Diseño y Publicidad",
@@ -43,6 +46,7 @@ const projects = [
     strapi: false,
     wordpress: false,
     MySQL: true,
+    shadcn: true,
   },
   {
     name: "Magnesol",
@@ -60,6 +64,7 @@ const projects = [
     strapi: false,
     wordpress: false,
     MySQL: true,
+    shadcn: true,
   },
   {
     name: "Estoril 820 - FDI",
@@ -77,6 +82,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "San Isidro - Landing",
@@ -93,6 +99,7 @@ const projects = [
     creation: false,
     strapi: false,
     MySQL: false,
+    shadcn: false,
   },
   {
     name: "Andrés Herrera Gré",
@@ -110,6 +117,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Línea Ética - Lo Campino",
@@ -127,6 +135,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Retail Financiero - ONG",
@@ -144,6 +153,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: true,
   },
   {
     name: "Último Stock",
@@ -161,6 +171,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Propiedades Max Coloma",
@@ -177,6 +188,7 @@ const projects = [
     creation: false,
     strapi: false,
     MySQL: true,
+    shadcn: true,
   },
   {
     name: "Molina Morel - Web",
@@ -194,6 +206,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Landing Coloso Days - Grupo Coloso",
@@ -210,6 +223,7 @@ const projects = [
     creation: false,
     strapi: false,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Landing Barrio Cueto - Urmeneta GI",
@@ -226,6 +240,7 @@ const projects = [
     creation: false,
     strapi: false,
     MySQL: false,
+    shadcn: false,
   },
   {
     name: "Cyber Molina Morel",
@@ -242,6 +257,7 @@ const projects = [
     creation: false,
     strapi: false,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Avellaneda Constructora",
@@ -259,6 +275,7 @@ const projects = [
     strapi: false,
     wordpress: true,
     MySQL: true,
+    shadcn: false,
   },
   {
     name: "Landing Black/Cyber - Inmobiliaria Manquehue",
@@ -275,6 +292,7 @@ const projects = [
     creation: false,
     strapi: false,
     MySQL: true,
+    shadcn: false,
   },
 ];
 
@@ -367,6 +385,23 @@ export default function Projects() {
                     />
                   </svg>
                   En creación
+                </span>
+              </div>
+            )}
+            {project.shadcn && (
+              <div className="flex z-10 items-center p-2 mt-6 space-x-2 text-sm font-medium text-slate-800 bg-slate-50 rounded-lg dark:bg-slate-900/30 dark:text-slate-200">
+                <span>Desarrollado con</span>
+                <Image
+                  src={Shadcn}
+                  width={20}
+                  height={20}
+                  className="inline-block"
+                  alt="Shadcn logo"
+                  loading="lazy"
+                  quality={100}
+                />
+                <span className="font-semibold text-slate-600 dark:text-slate-300">
+                  Shadcn UI
                 </span>
               </div>
             )}

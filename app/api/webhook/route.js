@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-import { exec, execSync, spawn } from 'child_process';
+import { exec } from 'child_process';
 import crypto from 'crypto';
 import { promisify } from 'util';
 

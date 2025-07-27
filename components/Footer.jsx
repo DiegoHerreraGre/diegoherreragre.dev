@@ -43,8 +43,6 @@ export function Footer() {
                       src={NextJS}
                       alt="Next.js Logo"
                       className="transition-transform hover:scale-150 dark:invert"
-                      quality={100}
-                      loading="lazy"
                     />
                     <Image
                       width={16}
@@ -52,8 +50,6 @@ export function Footer() {
                       src={Tailwind}
                       alt="Tailwind CSS Logo"
                       className="transition-transform hover:scale-150 dark:invert"
-                      quality={100}
-                      loading="lazy"
                     />
                     <Image
                       width={16}
@@ -61,8 +57,6 @@ export function Footer() {
                       src={MySQL}
                       alt="MySQL Logo"
                       className="transition-transform hover:scale-150 dark:invert"
-                      quality={100}
-                      loading="lazy"
                     />
                   </div>
                 </div>

@@ -333,7 +333,6 @@ export default function Projects() {
                 src={project.logo}
                 alt="logos de tecnologías utilizadas en el proyecto"
                 className="w-8 h-8"
-                quality={100}
               />
             </div>
             <h2 className="mt-6 text-base font-semibold text-zinc-800 dark:text-zinc-100">
@@ -397,8 +396,6 @@ export default function Projects() {
                   height={20}
                   className="inline-block"
                   alt="Shadcn logo"
-                  loading="lazy"
-                  quality={100}
                 />
                 <span className="font-semibold text-slate-600 dark:text-slate-300">
                   Shadcn UI
@@ -414,8 +411,6 @@ export default function Projects() {
                   height={20}
                   className="inline-block"
                   alt="Tailwind logo"
-                  loading="lazy"
-                  quality={100}
                 />
                 <span className="font-semibold text-blue-600 dark:text-blue-300">
                   Tailwind UI Plus
@@ -431,8 +426,6 @@ export default function Projects() {
                   height={20}
                   className="inline-block"
                   alt="Strapi logo"
-                  loading="lazy"
-                  quality={100}
                 />
                 <span className="font-semibold text-indigo-600 dark:text-indigo-300">
                   Strapi
@@ -448,8 +441,6 @@ export default function Projects() {
                   height={20}
                   className="inline-block"
                   alt="WordPress logo"
-                  loading="lazy"
-                  quality={100}
                 />
                 <span className="font-semibold text-sky-600 dark:text-sky-300">
                   WordPress
@@ -465,8 +456,6 @@ export default function Projects() {
                   height={20}
                   className="inline-block"
                   alt="MongoDB logo"
-                  loading="lazy"
-                  quality={100}
                 />
                 <span className="font-semibold text-amber-600 dark:text-amber-300">
                   MySQL
@@ -482,8 +471,6 @@ export default function Projects() {
                   height={20}
                   className="inline-block"
                   alt="MongoDB logo"
-                  loading="lazy"
-                  quality={100}
                 />
                 <span className="font-semibold text-green-600 dark:text-green-300">
                   MongoDB

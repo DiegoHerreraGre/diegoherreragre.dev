@@ -24,6 +24,8 @@ export const article = {
     "Zed emerge como un editor de código revolucionario, aprovechando el poder de Rust para ofrecer rendimiento excepcional, bajo consumo de recursos y un impacto ambiental reducido.",
 };
 
+export default (props) => <ArticleLayout article={article} {...props} />;
+
 export const metadata = {
   title: article.title,
   description: article.description,

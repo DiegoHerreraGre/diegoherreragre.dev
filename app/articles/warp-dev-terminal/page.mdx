@@ -25,6 +25,8 @@ export const article = {
     "Warp está redefiniendo lo que significa una terminal moderna con su implementación en Rust, rendimiento nativo y funcionalidades innovadoras que la diferencian de ITerm2 y tmux.",
 };
 
+export default (props) => <ArticleLayout article={article} {...props} />;
+
 export const metadata = {
   title: article.title,
   description: article.description,

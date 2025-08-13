@@ -10,6 +10,7 @@ import PHP from "@/images/logos/php.svg";
 import WordPress from "@/images/logos/wordpress.svg";
 import MySQL from "@/images/logos/mysql.svg";
 import Shadcn from "@/images/logos/shadcn.svg";
+import Prisma from "@/images/logos/prisma.svg";
 
 const projects = [
   {
@@ -29,6 +30,7 @@ const projects = [
     wordpress: false,
     MySQL: true,
     shadcn: true,
+    prisma: true,
   },
   {
     name: "MTM Diseño y Publicidad",
@@ -47,24 +49,26 @@ const projects = [
     wordpress: false,
     MySQL: true,
     shadcn: true,
+    prisma: true,
   },
   {
-    name: "Magnesol",
+    name: "Rent Up! - Landing",
     description:
-      "Sitio web para la empresa Magnesol, que es un mini e-commerce de productos de para freir aceite usando una tecnología que está mucho más alineada con la sustentabilidad, el impacto ambiental y el ahorro de energía",
+      "Landing page para el evento Rent Up que está relacionado con la rentabilidad de los activos inmobiliarios e inversión de renta corta en Santiago Centro",
     link: {
-      href: "https://magnesol.cl",
-      label: "Magnesol",
+      href: "https://rent-up.cl",
+      label: "Rent Up",
     },
     logo: NextJS,
-    production: false,
+    production: true,
     tailwind: true,
     mongodb: false,
     creation: false,
     strapi: false,
     wordpress: false,
     MySQL: true,
-    shadcn: true,
+    shadcn: false,
+    prisma: true,
   },
   {
     name: "Estoril 820 - FDI",
@@ -83,6 +87,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "San Isidro - Landing",
@@ -100,6 +105,7 @@ const projects = [
     strapi: false,
     MySQL: false,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Andrés Herrera Gré",
@@ -118,6 +124,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Línea Ética - Lo Campino",
@@ -136,6 +143,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Retail Financiero - ONG",
@@ -154,6 +162,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: true,
+    prisma: false,
   },
   {
     name: "Último Stock",
@@ -172,6 +181,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Propiedades Max Coloma",
@@ -189,6 +199,7 @@ const projects = [
     strapi: false,
     MySQL: true,
     shadcn: true,
+    prisma: true,
   },
   {
     name: "Molina Morel - Web",
@@ -207,6 +218,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Landing Coloso Days - Grupo Coloso",
@@ -224,6 +236,7 @@ const projects = [
     strapi: false,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Landing Barrio Cueto - Urmeneta GI",
@@ -241,6 +254,7 @@ const projects = [
     strapi: false,
     MySQL: false,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Cyber Molina Morel",
@@ -258,6 +272,7 @@ const projects = [
     strapi: false,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Avellaneda Constructora",
@@ -276,6 +291,7 @@ const projects = [
     wordpress: true,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
   {
     name: "Landing Black/Cyber - Inmobiliaria Manquehue",
@@ -293,6 +309,7 @@ const projects = [
     strapi: false,
     MySQL: true,
     shadcn: false,
+    prisma: false,
   },
 ];
 
@@ -399,6 +416,21 @@ export default function Projects() {
                 />
                 <span className="font-semibold text-slate-600 dark:text-slate-300">
                   Shadcn UI
+                </span>
+              </div>
+            )}
+            {project.prisma && (
+              <div className="flex z-10 items-center p-2 mt-6 space-x-2 text-sm font-medium text-cyan-800 bg-cyan-50 rounded-lg dark:bg-cyan-900/30 dark:text-cyan-200">
+                <span>ORM con</span>
+                <Image
+                  src={Prisma}
+                  width={20}
+                  height={20}
+                  className="inline-block"
+                  alt="Prisma logo"
+                />
+                <span className="font-semibold text-cyan-600 dark:text-cyan-300">
+                  Prisma
                 </span>
               </div>
             )}
